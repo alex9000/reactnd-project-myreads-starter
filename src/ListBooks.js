@@ -6,10 +6,6 @@ class ListBooks extends Component {
   static PropTypes = {
     books: PropTypes.array.isRequired
   }
-  filterBooks(books, shelf) {
-    const match = new RegExp(shelf, 'i')
-    return books.filter(book => match.test(book.shelf))
-  }
   render() {
     const { books } = this.props
     return (
@@ -19,9 +15,9 @@ class ListBooks extends Component {
         </div>
         <div className="list-books-content">
           <div>
-            <BookShelf shelf='Currently Reading' books={this.filterBooks(books, 'currentlyReading')}/>
-            <BookShelf shelf='Want to Read' books={this.filterBooks(books, 'wantToRead')}/>
-            <BookShelf shelf='Read' books={this.filterBooks(books, '^read$')}/>
+            <BookShelf bookShelfTitle='Currently Reading' books={books}  shelf='currentlyReading'/>
+            <BookShelf bookShelfTitle='Want to Read' books={books} shelf='wantToRead'/>
+            <BookShelf bookShelfTitle='Read' books={books} shelf='read'/>
           </div>
         </div>
         <div className="open-search">
