@@ -18,11 +18,11 @@ class BooksApp extends Component {
     books: []
   }
 
-  componentDidMount() {
-    BooksAPI.getAll().then((books) => {
-      this.setState({books})
-      console.log(this.state.books)
-    })
+  constructor(props) {
+   super(props);
+   BooksAPI.getAll().then((books) => {
+     this.setState({books})
+   })
   }
 
   render() {
