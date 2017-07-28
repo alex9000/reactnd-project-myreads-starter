@@ -3,12 +3,15 @@ import Book from './Book'
 import PropTypes from 'prop-types'
 
 class BookShelf extends Component {
+
   static PropTypes = {
     bookShelfTitle: PropTypes.string.isRequired,
-    books: PropTypes.array.isRequired
+    books: PropTypes.array.isRequired,
+    onUpdateBook: PropTypes.func.isRequired
   }
+
   render() {
-    const {bookShelfTitle, books} = this.props
+    const {bookShelfTitle, books, onUpdateBook} = this.props
     let showingBooks
     const match = new RegExp('^' + bookShelfTitle.replace(/ +/g, "") + '$', 'i')
     showingBooks = books.filter(book => match.test(book.shelf))
@@ -19,7 +22,7 @@ class BookShelf extends Component {
         <div className="bookshelf-books">
           <ol className="books-grid">
             {showingBooks.length && showingBooks.map(book => <li key={book.id}>
-              <Book title={book.title} author={book.authors[0]} imageWidth="128px" imageHeight="193px" imageSrc={book.imageLinks.smallThumbnail} shelf={book.shelf}/>
+              <Book book={book} title={book.title} author={book.authors[0]} imageWidth="128px" imageHeight="193px" imageSrc={book.imageLinks.smallThumbnail} shelf={book.shelf} onUpdateBook={onUpdateBook}/>
             </li>)}
 
           </ol>
