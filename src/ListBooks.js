@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import BookShelf from './BookShelf'
 import * as BooksAPI from './BooksAPI'
+import {Link} from 'react-router-dom'
 
 class ListBooks extends Component {
   state = {
@@ -14,7 +15,7 @@ class ListBooks extends Component {
   }
 
   updateBook = (book, shelf) => {
-    BooksAPI.update(book,shelf)
+    BooksAPI.update(book, shelf)
     BooksAPI.getAll().then((books) => {
       this.setState({books})
     })
@@ -34,7 +35,7 @@ class ListBooks extends Component {
           </div>
         </div>
         <div className="open-search">
-          <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
+          <Link to='/search' >Add a book</Link>
         </div>
       </div>
     )
