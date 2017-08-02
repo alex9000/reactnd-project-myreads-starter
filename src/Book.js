@@ -7,8 +7,10 @@ class Book extends Component {
     title: PropTypes.string.isRequired,
     author: PropTypes.string.isRequired,
     imageSrc: PropTypes.string.isRequired,
+    shelf: PropTypes.string.isRequired,
     onUpdateBook: PropTypes.func.isRequired
   }
+
   state = {
     shelf: this.props.shelf
   }
@@ -16,9 +18,10 @@ class Book extends Component {
   handleChange = (e) => {
     this.props.onUpdateBook(this.props.book, e.target.value)
   }
+  // TODO: render multiple authors
 
   render() {
-    const { imageWidth, imageHeight, shelf, imageSrc } = this.props
+    const { title, author, imageWidth, imageHeight, shelf, imageSrc } = this.props
     return (
       <div className="book">
         <div className="book-top">
@@ -33,8 +36,8 @@ class Book extends Component {
               </select>
             </div>
         </div>
-        <div className="book-title">{this.props.title}</div>
-        <div className="book-authors">{this.props.author}</div>
+        <div className="book-title">{title}</div>
+        <div className="book-authors">{author}</div>
       </div>
     )
   }
