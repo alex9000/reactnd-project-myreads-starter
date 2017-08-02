@@ -1,27 +1,16 @@
 import React, {Component} from 'react';
 import BookShelf from './BookShelf'
-import * as BooksAPI from './BooksAPI'
 import {Link} from 'react-router-dom'
+import PropTypes from 'prop-types'
 
 class ListBooks extends Component {
-  state = {
-    books: []
-  }
-  constructor(props) {
-    super(props);
-    BooksAPI.getAll().then((books) => {
-      this.setState({books})
-    })
-  }
-
-  updateBook = (book, shelf) => {
-    BooksAPI.update(book, shelf)
-    BooksAPI.getAll().then((books) => {
-      this.setState({books})
-    })
+  static PropTypes = {
+    books: PropTypes.array.isRequired,
+    onUpdateBook: PropTypes.func.isRequired
   }
 
   render() {
+    const { books, onUpdateBook } = this.props
     return (
       <div className="list-books">
         <div className="list-books-title">
@@ -29,9 +18,9 @@ class ListBooks extends Component {
         </div>
         <div className="list-books-content">
           <div>
-            <BookShelf bookShelfTitle='Currently Reading' books={this.state.books} shelf='currentlyReading' onUpdateBook={this.updateBook}/>
-            <BookShelf bookShelfTitle='Want to Read' books={this.state.books} shelf='wantToRead' onUpdateBook={this.updateBook}/>
-            <BookShelf bookShelfTitle='Read' books={this.state.books} shelf='read' onUpdateBook={this.updateBook}/>
+            <BookShelf bookShelfTitle='Currently Reading' books={books} shelf='currentlyReading' onUpdateBook={onUpdateBook}/>
+            <BookShelf bookShelfTitle='Want to Read' books={books} shelf='wantToRead' onUpdateBook={onUpdateBook}/>
+            <BookShelf bookShelfTitle='Read' books={books} shelf='read' onUpdateBook={onUpdateBook}/>
           </div>
         </div>
         <div className="open-search">
