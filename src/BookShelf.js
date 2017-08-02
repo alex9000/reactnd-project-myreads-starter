@@ -21,10 +21,10 @@ class BookShelf extends Component {
         <h2 className="bookshelf-title">{bookShelfTitle}</h2>
         <div className="bookshelf-books">
           <ol className="books-grid">
-            {showingBooks.length && showingBooks.map(book => <li key={book.id}>
+            { (showingBooks.length > 0) && showingBooks.map(book => <li key={book.id}>
               <Book book={book} title={book.title} author={book.authors[0]} imageWidth="128px" imageHeight="193px" imageSrc={book.imageLinks.smallThumbnail} shelf={book.shelf} onUpdateBook={onUpdateBook}/>
-            </li>)}
-
+            </li>)
+            }
           </ol>
         </div>
       </div>
