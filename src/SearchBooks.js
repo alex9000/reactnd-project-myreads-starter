@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {Link} from 'react-router-dom'
+import PropTypes from 'prop-types'
 import * as BooksAPI from './BooksAPI'
 import Book from './Book'
-import PropTypes from 'prop-types'
 
 class SearchBooks extends Component {
   static PropTypes = {
@@ -11,27 +11,29 @@ class SearchBooks extends Component {
 
   state = {
     query: '',
-    books: []
+    searchResults: []
   }
 
   updateQuery = (query) => {
-    this.setState({query: query})
+    this.setState({query: query}, this.searchBooks(query))
   }
 
-  componentDidUpdate() {
-    //console.log(this.state)
-    if (this.state.query ) {
-      BooksAPI.search(this.state.query, 5).then((books) => {
-        console.log(books)
-        if (books.error !== 'empty query') {
-          this.setState({books})
+  searchBooks = (query) => {
+    console.log('query: ' + query)
+    if (query.length > 2) {
+      BooksAPI.search(query).then((results) => {
+        console.log(results)
+        if (results.error !== 'empty query') {
+          this.setState({searchResults: results})
         }
       })
+    } else {
+      this.setState({ searchResults: []})
     }
   }
 
   render() {
-    const {query, books} = this.state
+    const {query, searchResults} = this.state
     const {onUpdateBook} = this.props
   //  console.log(query)
     return (
@@ -44,7 +46,7 @@ class SearchBooks extends Component {
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            {books.map((book) => (
+            { searchResults.map((book) => (
               <li key={book.id}>
                 <Book
                   book={book}
