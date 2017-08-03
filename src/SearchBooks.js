@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
-import {Link} from 'react-router-dom'
-import PropTypes from 'prop-types'
-import * as BooksAPI from './BooksAPI'
-import Book from './Book'
+import {Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
+import * as BooksAPI from './BooksAPI';
+import Book from './Book';
 
+/**
+* @description Search View
+*/
 class SearchBooks extends Component {
   static PropTypes = {
+    books: PropTypes.array.isRequired,
     onUpdateBook: PropTypes.func.isRequired
   }
 
@@ -14,28 +18,48 @@ class SearchBooks extends Component {
     searchResults: []
   }
 
+  /**
+  * @description onChange handler for search field
+  * @constructor
+  * @param {string} query - The search query
+  */
   updateQuery = (query) => {
-    this.setState({query: query}, this.searchBooks(query))
+    this.setState({query: query}, this.searchBooks(query));
   }
 
+  /**
+  * @description wrapper for BooksAPI.search that maps search results to
+  * state of books on book shelf
+  * @constructor
+  * @param {string} query - The search query
+  */
   searchBooks = (query) => {
-    console.log('query: ' + query)
+    console.log('query: ' + query);
     if (query.length > 2) {
       BooksAPI.search(query).then((results) => {
-        console.log(results)
         if (results.error !== 'empty query') {
-          this.setState({searchResults: results})
+          this.setState({
+            searchResults: results.map((r) => {
+              // Match search results to books in book shelf
+              const match = this.props.books.filter((b) => b.id === r.id);
+              if (typeof match !== 'undefined' && match.length > 0) {
+                r.shelf = match[0].shelf;
+              } else {
+                r.shelf = 'none';
+              }
+              return r;
+            })
+          });
         }
-      })
+      });
     } else {
-      this.setState({ searchResults: []})
+      this.setState({ searchResults: []});
     }
   }
 
   render() {
-    const {query, searchResults} = this.state
-    const {onUpdateBook} = this.props
-  //  console.log(query)
+    const {query, searchResults} = this.state;
+    const {onUpdateBook} = this.props;
     return (
       <div className="search-books">
         <div className="search-books-bar">
@@ -46,13 +70,14 @@ class SearchBooks extends Component {
         </div>
         <div className="search-books-results">
           <ol className="books-grid">
-            { searchResults.map((book) => (
-              <li key={book.id}>
+            { searchResults.map((result) => (
+              <li key={result.id}>
                 <Book
-                  book={book}
-                  title={book.title}
-                  author={book.author}
-                  imageSrc={book.imageLinks.smallThumbnail}
+                  book={result}
+                  shelf={result.shelf}
+                  title={result.title}
+                  author={result.authors ? result.authors[0] : undefined}
+                  imageSrc={result.imageLinks.smallThumbnail}
                   imageWidth="128px"
                   imageHeight="193px"
                   onUpdateBook={onUpdateBook}/>
@@ -61,8 +86,8 @@ class SearchBooks extends Component {
           </ol>
         </div>
       </div>
-    )
+    );
   }
 }
 
-export default SearchBooks
+export default SearchBooks;
