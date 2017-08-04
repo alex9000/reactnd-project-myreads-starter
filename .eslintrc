@@ -2,5 +2,7 @@
   "extends": "react-app",
   "rules": {
     "no-trailing-spaces": "error",
+    semi: ["warn", "always"],
+    brace-style: ["warn", "1tbs", { "allowSingleLine": true }]
   }
 }
