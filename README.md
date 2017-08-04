@@ -10,8 +10,8 @@ npm install
 
 ## Launching app
 ```
-cd my-app
-npm start 
+cd reactnd-project-myreads-starter
+npm start or yarn start
 ```
 
 ## Built With
