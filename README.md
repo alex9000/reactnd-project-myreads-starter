@@ -2,6 +2,17 @@
 
 React app with main (book Shelf) view displaying sortable book shelf and search view allowing book selection
 
+
+### Prerequisites
+
+* node
+* yarn
+
+macOS
+```
+brew install yarn
+```
+
 ### Installing
 
 ```
