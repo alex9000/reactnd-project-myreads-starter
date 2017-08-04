@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import Book from './Book'
-import PropTypes from 'prop-types'
+import Book from './Book';
+import PropTypes from 'prop-types';
 
 class BookShelf extends Component {
 
@@ -11,10 +11,10 @@ class BookShelf extends Component {
   }
 
   render() {
-    const {bookShelfTitle, books, onUpdateBook} = this.props
-    let showingBooks
-    const match = new RegExp('^' + bookShelfTitle.replace(/ +/g, "") + '$', 'i')
-    showingBooks = books.filter(book => match.test(book.shelf))
+    const {bookShelfTitle, books, onUpdateBook} = this.props;
+    let showingBooks;
+    const match = new RegExp('^' + bookShelfTitle.replace(/ +/g, "") + '$', 'i');
+    showingBooks = books.filter(book => match.test(book.shelf));
 
     return (
       <div className="bookshelf">
@@ -28,8 +28,8 @@ class BookShelf extends Component {
           </ol>
         </div>
       </div>
-    )
+    );
   }
 }
 
-export default BookShelf
+export default BookShelf;
