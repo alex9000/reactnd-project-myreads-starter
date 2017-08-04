@@ -1,7 +1,11 @@
 import React, {Component} from 'react';
-import BookShelf from './BookShelf'
-import {Link} from 'react-router-dom'
-import PropTypes from 'prop-types'
+import BookShelf from './BookShelf';
+import {Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
+
+/**
+* @description Main Book Shelf View
+*/
 
 class ListBooks extends Component {
   static PropTypes = {
@@ -10,7 +14,7 @@ class ListBooks extends Component {
   }
 
   render() {
-    const { books, onUpdateBook } = this.props
+    const { books, onUpdateBook } = this.props;
     return (
       <div className="list-books">
         <div className="list-books-title">
@@ -27,8 +31,8 @@ class ListBooks extends Component {
           <Link to='/search' >Add a book</Link>
         </div>
       </div>
-    )
+    );
   }
 }
 
-export default ListBooks
+export default ListBooks;
