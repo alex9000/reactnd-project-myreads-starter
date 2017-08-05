@@ -1,3 +1,4 @@
+/*global state updateBook*/
 import React, {Component} from 'react';
 import ListBooks from './ListBooks';
 import SearchBooks from './SearchBooks';
