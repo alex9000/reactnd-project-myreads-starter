@@ -28,6 +28,8 @@ npm start or yarn start
 ## Allowed search terms
 The backend API uses a fixed set of cached search results and is limited to a particular set of search terms, which can be found in [SEARCH_TERMS.md](SEARCH_TERMS.md). That list of terms are the _only_ terms that will work with the backend.
 
+//TO DO add usage information
+
 ## Built With
 
 * [Create React App](https://github.com/facebookincubator/create-react-app)
