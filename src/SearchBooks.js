@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import * as BooksAPI from './BooksAPI';
 import Book from './Book';
+import uniqBy from 'lodash/uniqBy';
 
 /**
 * @description Search View
@@ -36,11 +37,13 @@ class SearchBooks extends Component {
   */
   searchBooks = (query) => {
     console.log('query: ' + query);
-    if (query.length > 2) {
+    if (query.length > 0) {
       BooksAPI.search(query).then((results) => {
         if (results.error !== 'empty query') {
+          // Remove duplicates from search results
+          const uniqueResults = uniqBy(results, 'id');
           this.setState({
-            searchResults: results.map((r) => {
+            searchResults: uniqueResults.map((r) => {
               // Match search results to books in book shelf
               const match = this.props.books.filter((b) => b.id === r.id);
               if (typeof match !== 'undefined' && match.length > 0) {
