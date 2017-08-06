@@ -17,12 +17,15 @@ class Book extends Component {
   }
 
   handleChange = (e) => {
+    this.setState({shelf: e.target.value});
     this.props.onUpdateBook(this.props.book, e.target.value);
+  //  this.setState({shelf: e.target.value});
   }
   // TODO: render multiple authors
 
   render() {
-    const { title, author, imageWidth, imageHeight, shelf, imageSrc } = this.props;
+    const { title, author, imageWidth, imageHeight, imageSrc } = this.props;
+    const { shelf } = this.state;
     return (
       <div className="book">
         <div className="book-top">
