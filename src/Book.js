@@ -19,7 +19,6 @@ class Book extends Component {
   handleChange = (e) => {
     this.setState({shelf: e.target.value});
     this.props.onUpdateBook(this.props.book, e.target.value);
-  //  this.setState({shelf: e.target.value});
   }
   // TODO: render multiple authors
 
